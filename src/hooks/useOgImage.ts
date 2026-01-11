@@ -3,12 +3,24 @@ import { supabase } from '@/integrations/supabase/client';
 
 const ogImageCache = new Map<string, string | null>();
 
+// Validate URL format before making API call
+function isValidUrl(url: string): boolean {
+  if (!url || url.trim() === '') return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:';
+  } catch {
+    return false;
+  }
+}
+
 export function useOgImage(url: string | null) {
   const [ogImage, setOgImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!url) {
+    // Skip if URL is null, empty, or invalid
+    if (!url || !isValidUrl(url)) {
       setOgImage(null);
       return;
     }
