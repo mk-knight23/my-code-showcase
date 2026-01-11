@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Star, GitFork, Calendar } from 'lucide-react';
+import { ExternalLink, Github, Star, GitFork, Calendar, ImageOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { GitHubRepo, LANGUAGE_COLORS } from '@/types/github';
 import { formatDistanceToNow } from 'date-fns';
+import { useOgImage } from '@/hooks/useOgImage';
+import { useState } from 'react';
 
 interface ProjectCardProps {
   repo: GitHubRepo;
@@ -12,6 +14,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ repo, index }: ProjectCardProps) {
+  const { ogImage, loading: ogLoading } = useOgImage(repo.homepage || null);
+  const [imageError, setImageError] = useState(false);
   const languageColor = repo.language ? LANGUAGE_COLORS[repo.language] || '#6e7681' : null;
 
   return (
@@ -22,13 +26,37 @@ export function ProjectCard({ repo, index }: ProjectCardProps) {
       viewport={{ once: true }}
     >
       <Card className="h-full glass border-glow hover:glow-primary transition-all duration-300 group overflow-hidden">
-        {/* Preview Image Placeholder */}
+        {/* Project Preview Image */}
         <div className="h-40 bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid opacity-30" />
-          <div className="relative z-10 font-mono text-2xl font-bold text-primary/50">
-            {repo.name.slice(0, 2).toUpperCase()}
-          </div>
-          <div className="absolute top-3 right-3 flex gap-2">
+          {ogLoading ? (
+            // Loading skeleton
+            <div className="absolute inset-0 bg-muted animate-pulse" />
+          ) : ogImage && !imageError ? (
+            // Real OG image
+            <img
+              src={ogImage}
+              alt={`${repo.name} preview`}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            // Fallback placeholder
+            <>
+              <div className="absolute inset-0 bg-grid opacity-30" />
+              <div className="relative z-10 flex flex-col items-center gap-2">
+                {imageError ? (
+                  <ImageOff className="h-8 w-8 text-muted-foreground/50" />
+                ) : (
+                  <span className="font-mono text-2xl font-bold text-primary/50">
+                    {repo.name.slice(0, 2).toUpperCase()}
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+          
+          {/* Stats badges overlay */}
+          <div className="absolute top-3 right-3 flex gap-2 z-10">
             {repo.stargazers_count > 0 && (
               <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
                 <Star className="h-3 w-3 mr-1 text-secondary" />
