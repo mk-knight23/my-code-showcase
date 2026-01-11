@@ -87,7 +87,7 @@ export function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-8"
                 >
-                  <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
+                  <CheckCircle className="h-16 w-16 text-terminal-green mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
                   <p className="text-muted-foreground">Thanks for reaching out. I'll get back to you soon!</p>
                 </motion.div>

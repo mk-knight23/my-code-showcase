@@ -31,7 +31,7 @@ export function ProjectCard({ repo, index }: ProjectCardProps) {
           <div className="absolute top-3 right-3 flex gap-2">
             {repo.stargazers_count > 0 && (
               <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-                <Star className="h-3 w-3 mr-1 text-yellow-400" />
+                <Star className="h-3 w-3 mr-1 text-secondary" />
                 {repo.stargazers_count}
               </Badge>
             )}

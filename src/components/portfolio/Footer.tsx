@@ -66,7 +66,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground text-sm">
           <p className="flex items-center justify-center gap-1">
-            Built with <Heart className="h-4 w-4 text-red-400" /> by Kazi Musharraf
+            Built with <Heart className="h-4 w-4 text-destructive" /> by Kazi Musharraf
             <span className="mx-2">•</span>
             © {currentYear}
           </p>
