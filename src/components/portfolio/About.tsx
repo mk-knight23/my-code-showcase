@@ -2,19 +2,28 @@ import { motion } from 'framer-motion';
 import { Code, Cpu, Zap, Globe, Sparkles, Terminal } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-const skills = [
-  { name: 'TypeScript', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
-  { name: 'Python', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
-  { name: 'React', color: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30' },
-  { name: 'Next.js', color: 'bg-white/20 text-white border-white/30' },
-  { name: 'Node.js', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-  { name: 'AI/ML', color: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
-  { name: 'n8n', color: 'bg-orange-500/20 text-orange-400 border-orange-500/30' },
-  { name: 'Make', color: 'bg-pink-500/20 text-pink-400 border-pink-500/30' },
-  { name: 'Supabase', color: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' },
-  { name: 'Docker', color: 'bg-blue-400/20 text-blue-300 border-blue-400/30' },
-  { name: 'LangChain', color: 'bg-teal-500/20 text-teal-400 border-teal-500/30' },
-  { name: 'OpenAI', color: 'bg-green-400/20 text-green-300 border-green-400/30' },
+type SkillTone = 'primary' | 'secondary' | 'terminal' | 'muted';
+
+const toneClasses: Record<SkillTone, string> = {
+  primary: 'bg-primary/10 text-primary border-primary/30',
+  secondary: 'bg-secondary/10 text-secondary border-secondary/30',
+  terminal: 'bg-terminal-green/10 text-terminal-green border-terminal-green/30',
+  muted: 'bg-muted/40 text-foreground border-border',
+};
+
+const skills: { name: string; tone: SkillTone }[] = [
+  { name: 'TypeScript', tone: 'primary' },
+  { name: 'Python', tone: 'secondary' },
+  { name: 'React', tone: 'primary' },
+  { name: 'Next.js', tone: 'muted' },
+  { name: 'Node.js', tone: 'terminal' },
+  { name: 'AI/ML', tone: 'secondary' },
+  { name: 'n8n', tone: 'terminal' },
+  { name: 'Make', tone: 'secondary' },
+  { name: 'Backend', tone: 'muted' },
+  { name: 'Docker', tone: 'primary' },
+  { name: 'LangChain', tone: 'secondary' },
+  { name: 'OpenAI', tone: 'terminal' },
 ];
 
 const highlights = [
@@ -98,7 +107,7 @@ export function About() {
                   >
                     <Badge 
                       variant="outline" 
-                      className={`${skill.color} hover:scale-105 transition-transform cursor-default`}
+                      className={`${toneClasses[skill.tone]} hover:scale-105 transition-transform cursor-default`}
                     >
                       {skill.name}
                     </Badge>

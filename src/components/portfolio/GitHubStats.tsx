@@ -10,9 +10,9 @@ export function GitHubStats() {
 
   const statItems = [
     { icon: FolderGit2, label: 'Repositories', value: stats.totalRepos, color: 'text-primary' },
-    { icon: Star, label: 'Total Stars', value: stats.totalStars, color: 'text-yellow-400' },
-    { icon: GitFork, label: 'Total Forks', value: stats.totalForks, color: 'text-secondary' },
-    { icon: Users, label: 'Followers', value: stats.followers, color: 'text-green-400' },
+    { icon: Star, label: 'Total Stars', value: stats.totalStars, color: 'text-secondary' },
+    { icon: GitFork, label: 'Total Forks', value: stats.totalForks, color: 'text-primary' },
+    { icon: Users, label: 'Followers', value: stats.followers, color: 'text-terminal-green' },
   ];
 
   return (
